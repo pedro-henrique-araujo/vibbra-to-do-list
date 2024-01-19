@@ -21,13 +21,13 @@ Data de entrega: 19 de Janeiro de 2023
 
 ### Frontend
 
-Linguagem: Typescript
-Framework: Angular 17
-Bibliotecas: Bulma, PrimeNg, TailwindCss
+- Linguagem: Typescript
+- Framework: Angular 17
+- Bibliotecas: Bulma, PrimeNg, TailwindCss
 
 ### Backend
 
-Linguagem: C#
-Frameworks: .NET 7, Entity Framework
-Bibliotecas: xUnit, Mock
-Banco de dados: SQLite
+- Linguagem: C#
+- Frameworks: .NET 7, Entity Framework
+- Bibliotecas: xUnit, Mock
+- Banco de dados: SQLite
