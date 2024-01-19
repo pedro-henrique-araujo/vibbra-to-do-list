@@ -1,0 +1,39 @@
+<div class="text-3xl font-bold my-8">Cadastrar-se</div>
+<form [formGroup]="formGroup">
+  <div>
+    <label for="userName" class="label">Usuário</label>
+    <input
+      type="text"
+      class="input"
+      id="userName"
+      formControlName="userName"
+      placeholder="Digite um nome para seu novo usuário..."
+      [ngClass]="{
+        'is-danger':
+          (userNameControl.touched && userNameControl.errors) ||
+          userAlreadyExists
+      }"
+    />
+    @if(userNameControl.touched && userNameControl.errors; as errors) {
+    @if(errors?.['required']) {
+    <div id="required-validation-message" class="text-red-400">
+      Este campo é obrigatório
+    </div>
+    } } @if(userAlreadyExists) {
+    <div id="user-exists-validation-message" class="text-red-400">
+      Já existe um usuário com este nome, clique em "Entrar"
+    </div>
+    }
+  </div>
+  <div class="my-5 flex gap-2">
+    <button
+      id="submit"
+      class="button is-link"
+      [disabled]="formGroup.invalid || userAlreadyExists"
+      (click)="signUp($event)"
+    >
+      Cadastrar-se
+    </button>
+    <button class="button is-link is-light" routerLink="">Entrar</button>
+  </div>
+</form>

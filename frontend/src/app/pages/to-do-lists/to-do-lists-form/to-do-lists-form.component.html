@@ -1,0 +1,121 @@
+<div class="my-8">
+  <div class="flex justify-between">
+    <div class="flex gap-3">
+      <button
+        class="button is-primary"
+        (click)="save()"
+        [disabled]="nameControl.errors"
+      >
+        Salvar
+      </button>
+      <button routerLink="/to-do-lists" class="button">Página inicial</button>
+    </div>
+    @if(editMode && userIsOwner()) {
+    <button class="button is-danger" (click)="openExclusionModal()">
+      Excluir</button
+    >}
+  </div>
+
+  <div class="my-8">
+    <label for="name" class="label">Nome</label>
+    <input
+      id="name"
+      class="input"
+      [formControl]="nameControl"
+      [ngClass]="{ 'is-danger': nameControl.touched && nameControl.errors }"
+      placeholder="Insira um nome para a lista..."
+    />
+    @if(nameControl.touched && nameControl.errors; as errors) {
+    @if(errors?.['required']) {
+    <span class="text-red-400">Campo obrigatório</span>
+    } }
+  </div>
+  <div class="my-8">
+    <button
+      class="button is-success is-small p-0 w-20 group flex gap-1"
+      (click)="addRootChild()"
+    >
+      <div>Novo</div>
+    </button>
+    @if(treeNodes.length > 0) {
+    <p-tree
+      [value]="treeNodes"
+      [draggableNodes]="true"
+      [droppableNodes]="true"
+      draggableScope="self"
+      droppableScope="self"
+    >
+      <ng-template let-node pTemplate="default">
+        <div class="flex flex-col gap-2">
+          <div class="flex gap-3">
+            <button
+              (click)="addChild(node)"
+              (keyup)="$event.stopPropagation()"
+              (keypress)="$event.stopPropagation()"
+              (keydown)="$event.stopPropagation()"
+              class="button is-success is-small p-0 w-10 hover:w-24 is-rounded group flex gap-1"
+            >
+              <img src="../../../../assets/corner-down-right.svg" />
+              <div class="hidden group-hover:block">Nova</div>
+            </button>
+            <input type="checkbox" [(ngModel)]="node.data" />
+            <input
+              class="px-3 py-1 border-none shadow-none"
+              placeholder="Nome da tarefa..."
+              [(ngModel)]="node.label"
+            />
+            <button class="button is-danger is-small" (click)="remove(node)">
+              Remover
+            </button>
+          </div>
+        </div>
+      </ng-template>
+    </p-tree>
+    }
+  </div>
+</div>
+
+@if(showExclusionModal) {
+<div
+  class="absolute top-0 left-0 w-full h-full flex items-center justify-center backdrop-blur-sm bg-gray-500/30"
+>
+  <div class="shadow p-5 rounded bg-white">
+    <h3 class="text-xl font-bold">Excluir</h3>
+    <p class="my-3">Deseja mesmo excluir esta lista?</p>
+    <div class="flex gap-3 my-2">
+      <button class="button is-small is-primary" (click)="hideExclusionModal()">
+        Não
+      </button>
+      <button class="button is-small is-danger" (click)="removeList()">
+        Sim
+      </button>
+    </div>
+  </div>
+</div>
+}
+
+<h2 class="text-2xl font-bold my-8">Instruções</h2>
+<h3 class="text-xl font-bold mt-8">Criação edição e remoção</h3>
+<ul class="list-disc ml-8">
+  <li class="my-5">
+    Clique no botão <strong>"Nova"</strong> para criar um novo item
+  </li>
+  <li class="my-5">Clique no botão + para criar um novo sub-item</li>
+  <li class="my-5">Clique no botão + para excluir o item</li>
+  <li class="my-5">
+    Clique marque a caixa de seleção e mude o texto para editar o item
+  </li>
+  <li class="my-5">Clique em <strong>"Salvar"</strong> para salvar a lista</li>
+</ul>
+<h3 class="text-xl font-bold mt-8">Mover itens e sub-items</h3>
+<ul class="list-disc ml-8">
+  <li class="my-5">Arraste um item para outro para torná-lo um sub-item</li>
+  <li class="my-5">
+    Para tornar um sub-item um item arraste para:
+    <ul class="list-disc ml-8">
+      <li>O espaço entre os itens;</li>
+      <li>O espaço antes do primeiro item;</li>
+      <li>Ou o espaço após o último item</li>
+    </ul>
+  </li>
+</ul>

@@ -1,0 +1,40 @@
+<h1 class="text-3xl font-bold my-8">Entrar</h1>
+<form [formGroup]="formGroup">
+  <div>
+    <label for="userName" class="label">Usuário</label>
+    <input
+      id="userName"
+      class="input"
+      type="text"
+      formControlName="userName"
+      placeholder="Digite o seu usuário..."
+      [ngClass]="{
+        'is-danger':
+          (userNameControl.touched && userNameControl.errors) || userIsInvalid
+      }"
+    />
+    @if(userNameControl.touched && userNameControl.errors; as errors) {
+    @if(errors?.['required']) {
+    <div id="required-validation-message" class="text-red-400">
+      Este campo é obrigatório
+    </div>
+    } } @if(userIsInvalid) {
+    <div id="user-not-exists-validation-message" class="text-red-400">
+      Usuário inexistente, clique em "Cadastrar-se"
+    </div>
+    }
+  </div>
+  <div class="my-5 flex gap-2">
+    <button
+      id="submit"
+      class="button is-link"
+      (click)="login($event)"
+      [disabled]="formGroup.invalid || userIsInvalid"
+    >
+      Entrar
+    </button>
+    <button class="button is-link is-light" routerLink="sign-up">
+      Cadastrar-se
+    </button>
+  </div>
+</form>

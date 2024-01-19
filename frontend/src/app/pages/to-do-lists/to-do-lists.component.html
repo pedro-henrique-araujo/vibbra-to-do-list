@@ -1,0 +1,77 @@
+<div class="relative">
+  <h1 class="text-3xl font-bold my-8">Listas</h1>
+  <div>
+    <button routerLink="new" class="button is-primary">Nova</button>
+  </div>
+  @if(toDoLists?.length) {
+  <table class="w-full table is-striped">
+    <thead>
+      <tr>
+        <th>Nome</th>
+        <th>Link</th>
+      </tr>
+    </thead>
+    <tbody>
+      @for(list of toDoLists; track list.id) {
+      <tr>
+        <td>
+          <a class="button is-ghost" [routerLink]="'edit/' + list.id">{{
+            list.name
+          }}</a>
+        </td>
+        <td>
+          <button
+            (click)="copyToClipBoard(list.id)"
+            class="button is-ghost hover:bg-gray-200"
+          >
+            <img src="../../../assets/link.svg" />
+          </button>
+        </td>
+      </tr>
+
+      }
+    </tbody>
+  </table>
+  <div class="flex justify-between items-center">
+    <button
+      class="button is-link"
+      (click)="loadPreviousPage()"
+      [disabled]="isFirstPage()"
+    >
+      Anterior
+    </button>
+    <div>Página {{ pageCurrentNumber() }} de {{ totalNumberOfPages() }}</div>
+    <button
+      class="button is-link"
+      (click)="loadNextPage()"
+      [disabled]="isLastPage()"
+    >
+      Próxima
+    </button>
+  </div>
+  }
+  <h2 class="text-2xl font-bold my-8">Instruções</h2>
+  <ul class="list-disc ml-8">
+    <li class="my-5">
+      Clique no botão <strong>"Nova"</strong> para criar uma nova lista
+    </li>
+    <li class="my-5">
+      Ao visualizar listas clique no nome delas para editá-las
+    </li>
+    <li class="my-5">
+      Você só pode excluir uma lista que foi criada pelo seu usuário
+    </li>
+    <li class="my-5">
+      Para excluir clique na tarefa para editar, em seguida clique em
+      <strong>"Excluir"</strong> e confirme
+    </li>
+  </ul>
+
+  <div
+    class="notification is-success absolute right-5 top-5 is-light"
+    [ngClass]="showSuccessfullCopyMessage ? 'absolute' : 'hidden'"
+  >
+    <button class="delete" (click)="hideSuccessfullCopyMessage()"></button>Link
+    copiado
+  </div>
+</div>

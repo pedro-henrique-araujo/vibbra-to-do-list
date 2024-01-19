@@ -1,0 +1,19 @@
+<div
+  class="mx-auto w-full mt-6"
+  [ngClass]="isAuthenticated() ? 'max-w-3xl' : 'max-w-md'"
+>
+  <div class="flex justify-center">
+    <button
+      class="button is-ghost"
+      [routerLink]="isAuthenticated() ? 'to-do-lists' : ''"
+    >
+      Início
+    </button>
+    <button class="button is-ghost" routerLink="about">Sobre</button>
+    @if(isAuthenticated()) {
+    <button class="button is-ghost" (click)="logOut()">Sair</button>
+
+    }
+  </div>
+  <router-outlet></router-outlet>
+</div>
