@@ -8,7 +8,7 @@
       >
         Salvar
       </button>
-      <button routerLink="/to-do-lists" class="button">Página inicial</button>
+      <button routerLink="/to-do-lists" class="button">Voltar</button>
     </div>
     @if(editMode && userIsOwner()) {
     <button class="button is-danger" (click)="openExclusionModal()">
@@ -32,10 +32,10 @@
   </div>
   <div class="my-8">
     <button
-      class="button is-success is-small p-0 w-20 group flex gap-1"
+      class="button is-success is-outlined is-small p-0 w-20 group flex gap-1"
       (click)="addRootChild()"
     >
-      <div>Novo</div>
+      <div>Novo item</div>
     </button>
     @if(treeNodes.length > 0) {
     <p-tree
@@ -47,25 +47,26 @@
     >
       <ng-template let-node pTemplate="default">
         <div class="flex flex-col gap-2">
-          <div class="flex gap-3">
+          <div class="flex gap-3 items-center group">
             <button
               (click)="addChild(node)"
-              (keyup)="$event.stopPropagation()"
-              (keypress)="$event.stopPropagation()"
-              (keydown)="$event.stopPropagation()"
-              class="button is-success is-small p-0 w-10 hover:w-24 is-rounded group flex gap-1"
+              class="button is-ghost is-small p-0 w-10 is-rounded flex gap-1 invisible group-hover:visible"
             >
-              <img src="../../../../assets/corner-down-right.svg" />
-              <div class="hidden group-hover:block">Nova</div>
+              <img src="../../../../assets/plus.svg" />
             </button>
             <input type="checkbox" [(ngModel)]="node.data" />
-            <input
-              class="px-3 py-1 border-none shadow-none"
-              placeholder="Nome da tarefa..."
-              [(ngModel)]="node.label"
-            />
-            <button class="button is-danger is-small" (click)="remove(node)">
-              Remover
+            <div>
+              <input
+                class="px-3 py-1 border-none shadow-none input"
+                placeholder="Nome da tarefa..."
+                [(ngModel)]="node.label"
+              />
+            </div>
+            <button
+              class="button is-ghost invisible group-hover:visible"
+              (click)="remove(node)"
+            >
+              <img src="../../../../assets/trash.svg" />
             </button>
           </div>
         </div>
@@ -98,10 +99,24 @@
 <h3 class="text-xl font-bold mt-8">Criação edição e remoção</h3>
 <ul class="list-disc ml-8">
   <li class="my-5">
-    Clique no botão <strong>"Nova"</strong> para criar um novo item
+    Clique no botão <strong>"Novo item"</strong> para criar um novo item
   </li>
-  <li class="my-5">Clique no botão + para criar um novo sub-item</li>
-  <li class="my-5">Clique no botão + para excluir o item</li>
+  <li>
+    Passe o mouse por cima do item para exibir opção de adicionar sub-item ou
+    excluir
+  </li>
+  <li class="my-5">
+    <div class="flex gap-1">
+      Clique no botão <img src="../../../../assets/plus.svg" /> para criar um
+      novo sub-item
+    </div>
+  </li>
+  <li class="my-5">
+    <div class="flex gap-1">
+      Clique no botão <img src="../../../../assets/trash.svg" /> para excluir o
+      item
+    </div>
+  </li>
   <li class="my-5">
     Clique marque a caixa de seleção e mude o texto para editar o item
   </li>

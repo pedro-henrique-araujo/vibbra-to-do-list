@@ -10,7 +10,9 @@ export class CanActivateAuthRouteService {
   private router = inject(Router);
   canActivate() {
     if (this.authService.isAuthenticated()) return true;
-    this.router.navigate(['']);
+    this.router.navigate([''], {
+      queryParams: { redirectTo: window.location.pathname },
+    });
     return false;
   }
 }

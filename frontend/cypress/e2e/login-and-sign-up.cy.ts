@@ -4,7 +4,7 @@ describe('Login and Sign up', () => {
   const disposableUserName = 'disposable';
 
   async function deleteDisposableUser() {
-    await api.delete('User/' + disposableUserName);
+    await api.delete('/User/' + disposableUserName);
   }
 
   before((done) => {

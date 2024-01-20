@@ -1,8 +1,9 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { HttpService } from './http.service';
 import { TestBed } from '@angular/core/testing';
 import { environment } from '../../../environments/environment';
 import { asyncData } from '../utils/async-data';
+import { AuthService } from './auth.service';
 
 describe(HttpService.name, () => {
   let httpService: HttpService;
@@ -12,10 +13,15 @@ describe(HttpService.name, () => {
       'get',
       'post',
     ]);
+    const authServiceSpyObj = jasmine.createSpyObj('AuthService', [
+      'isAuthenticated',
+      'getUserId',
+    ]);
     await TestBed.configureTestingModule({
       providers: [
         HttpService,
         { provide: HttpClient, useValue: httpClientSpyObj },
+        { provide: AuthService, useValue: authServiceSpyObj },
       ],
     }).compileComponents();
 
@@ -32,7 +38,10 @@ describe(HttpService.name, () => {
       };
 
       httpClientSpy.get
-        .withArgs(environment.backendBaseUrl + '/path')
+        .withArgs(environment.backendBaseUrl + '/path', {
+          headers: {},
+          params: new HttpParams(),
+        })
         .and.returnValues(asyncData(expectedData));
 
       httpService.get<any>('/path').subscribe({
@@ -58,7 +67,9 @@ describe(HttpService.name, () => {
       };
 
       httpClientSpy.post
-        .withArgs(environment.backendBaseUrl + '/path', body)
+        .withArgs(environment.backendBaseUrl + '/path', body, {
+          headers: {},
+        })
         .and.returnValues(asyncData(expectedData));
 
       httpService.post<any>('/path', body).subscribe({

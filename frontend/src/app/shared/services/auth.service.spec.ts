@@ -1,4 +1,4 @@
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { AuthService } from './auth.service';
 import { TestBed } from '@angular/core/testing';
 import { emptyUserId } from '../utils/empty-user-id';
@@ -10,7 +10,17 @@ describe(AuthService.name, () => {
   beforeEach(async () => {
     const routerSpyValue = jasmine.createSpyObj('Router', ['navigate']);
     await TestBed.configureTestingModule({
-      providers: [AuthService, { provide: Router, useValue: routerSpyValue }],
+      providers: [
+        AuthService,
+        {
+          provide: Router,
+          useValue: routerSpyValue,
+        },
+        {
+          provide: ActivatedRoute,
+          useValue: { snapshot: { queryParams: {} } },
+        },
+      ],
     }).compileComponents();
 
     authService = TestBed.inject(AuthService);

@@ -4,6 +4,7 @@ import { HttpService } from '../../shared/services/http.service';
 import { SignUpService } from './sign-up.service';
 import { asyncData } from '../../shared/utils/async-data';
 import { emptyUserId } from '../../shared/utils/empty-user-id';
+import { ActivatedRoute } from '@angular/router';
 
 describe(SignUpService.name, () => {
   let signUpService: SignUpService;
@@ -12,7 +13,6 @@ describe(SignUpService.name, () => {
   beforeEach(async () => {
     const httpSpyValue = jasmine.createSpyObj('HttpService', ['get', 'post']);
     const authSpyValue = jasmine.createSpyObj('AuthService', ['authorize']);
-
     await TestBed.configureTestingModule({
       providers: [
         SignUpService,

@@ -34,7 +34,7 @@
   </table>
   <div class="flex justify-between items-center">
     <button
-      class="button is-link"
+      class="button is-link is-small"
       (click)="loadPreviousPage()"
       [disabled]="isFirstPage()"
     >
@@ -42,7 +42,7 @@
     </button>
     <div>Página {{ pageCurrentNumber() }} de {{ totalNumberOfPages() }}</div>
     <button
-      class="button is-link"
+      class="button is-link is-small"
       (click)="loadNextPage()"
       [disabled]="isLastPage()"
     >

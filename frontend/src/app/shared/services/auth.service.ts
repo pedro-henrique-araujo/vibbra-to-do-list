@@ -1,14 +1,20 @@
 import { User } from './../interfaces/user.interface';
 import { Injectable, inject } from '@angular/core';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { emptyUserId } from '../utils/empty-user-id';
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {
+  private activatedRoute = inject(ActivatedRoute);
   private router = inject(Router);
 
   public authorize(user: User) {
     localStorage.setItem('user', JSON.stringify(user));
+    const redirectTo = this.activatedRoute.snapshot.queryParams['redirectTo'];
+    if (redirectTo) {
+      this.router.navigate([redirectTo]);
+      return;
+    }
     this.router.navigate(['to-do-lists']);
   }
 

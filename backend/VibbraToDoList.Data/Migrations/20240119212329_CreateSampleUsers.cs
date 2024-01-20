@@ -12,8 +12,11 @@ namespace VibbraToDoList.Data.Migrations
         {
             migrationBuilder.InsertData("Users",
                 new[] { "Id", "UserName" },
-                new[] { Guid.NewGuid().ToString(), "jane" },
-                new[] { Guid.NewGuid().ToString(), "john" });
+               new object[,]
+               {
+                   { Guid.NewGuid(), "john" },
+                   { Guid.NewGuid(), "jane" }
+               });
         }
 
         /// <inheritdoc />

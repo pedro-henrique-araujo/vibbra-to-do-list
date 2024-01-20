@@ -1,6 +1,6 @@
 import { AuthService } from './../../shared/services/auth.service';
 import { Injectable, inject } from '@angular/core';
-import { Observable, map } from 'rxjs';
+import { map } from 'rxjs';
 import { HttpService } from '../../shared/services/http.service';
 import { User } from '../../shared/interfaces/user.interface';
 import { emptyUserId } from '../../shared/utils/empty-user-id';

@@ -2,6 +2,7 @@ import { Component, OnInit, inject } from '@angular/core';
 import { ToDoList } from '../../shared/interfaces/to-do-list.interface';
 import { ToDoListsService } from './to-do-lists.service';
 import { environment } from '../../../environments/environment';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   templateUrl: './to-do-lists.component.html',
@@ -10,7 +11,10 @@ export class ToDoListsComponent implements OnInit {
   public toDoLists!: ToDoList[];
   public showSuccessfullCopyMessage: boolean = false;
   private toDoListsService = inject(ToDoListsService);
+  private activatedRoute = inject(ActivatedRoute);
+
   public ngOnInit() {
+    console.log(this.activatedRoute.snapshot.url);
     this.toDoListsService.getPage().subscribe(this.loadIntoToDoLists);
   }
 

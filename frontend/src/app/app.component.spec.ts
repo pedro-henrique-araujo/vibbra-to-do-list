@@ -1,10 +1,15 @@
 import { TestBed } from '@angular/core/testing';
 import { AppComponent } from './app.component';
+import { AuthService } from './shared/services/auth.service';
 
 describe('AppComponent', () => {
   beforeEach(async () => {
+    const authServiceObjSpy = jasmine.createSpyObj(['AuthService']);
     await TestBed.configureTestingModule({
-      providers: [AppComponent],
+      providers: [
+        AppComponent,
+        { provide: AuthService, useValue: authServiceObjSpy },
+      ],
     }).compileComponents();
   });
 

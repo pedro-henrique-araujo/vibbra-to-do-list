@@ -9,16 +9,18 @@ import { SignUpService } from './sign-up.service';
 import { By } from '@angular/platform-browser';
 import { asyncData } from '../../shared/utils/async-data';
 import { ReactiveFormsModule } from '@angular/forms';
+import { ActivatedRoute, RouterModule } from '@angular/router';
 
 describe(SignUpComponent.name, () => {
   let component: SignUpComponent;
   let fixture: ComponentFixture<SignUpComponent>;
   let signUpServiceSpy: jasmine.SpyObj<SignUpService>;
   beforeEach(async () => {
-    let signUpSpyValue = jasmine.createSpyObj('SignUpService', [
+    const signUpSpyValue = jasmine.createSpyObj('SignUpService', [
       'signUp',
       'userExists',
     ]);
+
     await TestBed.configureTestingModule({
       declarations: [SignUpComponent],
       providers: [
@@ -26,8 +28,12 @@ describe(SignUpComponent.name, () => {
           provide: SignUpService,
           useValue: signUpSpyValue,
         },
+        {
+          provide: ActivatedRoute,
+          useValue: { snapshot: { queryParams: {} } },
+        },
       ],
-      imports: [ReactiveFormsModule],
+      imports: [ReactiveFormsModule, RouterModule],
     }).compileComponents();
 
     fixture = TestBed.createComponent(SignUpComponent);

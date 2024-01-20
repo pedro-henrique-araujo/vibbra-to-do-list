@@ -1,5 +1,9 @@
 <h1 class="text-3xl font-bold my-8">Entrar</h1>
 <form [formGroup]="formGroup">
+  <p class="my-2 flex gap-1 text-sm text-gray-400">
+    <img src="../../../assets/alert-circle.svg" />
+    <span> Cadastre-se ou use um dos usuários padrões: "john" e "jane" </span>
+  </p>
   <div>
     <label for="userName" class="label">Usuário</label>
     <input
@@ -20,7 +24,8 @@
     </div>
     } } @if(userIsInvalid) {
     <div id="user-not-exists-validation-message" class="text-red-400">
-      Usuário inexistente, clique em "Cadastrar-se"
+      Usuário inexistente, clique em "Cadastrar-se" ou use um dos usuários
+      padrões: "john" e "jane"
     </div>
     }
   </div>
@@ -33,7 +38,11 @@
     >
       Entrar
     </button>
-    <button class="button is-link is-light" routerLink="sign-up">
+    <button
+      class="button is-link is-light"
+      routerLink="sign-up"
+      [queryParams]="{redirectTo}"
+    >
       Cadastrar-se
     </button>
   </div>

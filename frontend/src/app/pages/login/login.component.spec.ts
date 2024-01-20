@@ -9,6 +9,7 @@ import { By } from '@angular/platform-browser';
 import { LoginService } from './login.service';
 import { ReactiveFormsModule } from '@angular/forms';
 import { asyncData } from '../../shared/utils/async-data';
+import { ActivatedRoute, RouterModule } from '@angular/router';
 
 describe(LoginComponent.name, () => {
   let fixture: ComponentFixture<LoginComponent>;
@@ -17,10 +18,17 @@ describe(LoginComponent.name, () => {
 
   beforeEach(async () => {
     const loginSpyValue = jasmine.createSpyObj(['LoginService', ['login']]);
+
     await TestBed.configureTestingModule({
       declarations: [LoginComponent],
-      providers: [{ provide: LoginService, useValue: loginSpyValue }],
-      imports: [ReactiveFormsModule],
+      providers: [
+        { provide: LoginService, useValue: loginSpyValue },
+        {
+          provide: ActivatedRoute,
+          useValue: { snapshot: { queryParams: {} } },
+        },
+      ],
+      imports: [ReactiveFormsModule, RouterModule],
     }).compileComponents();
 
     fixture = TestBed.createComponent(LoginComponent);
