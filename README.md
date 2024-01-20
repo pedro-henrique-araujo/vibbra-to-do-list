@@ -2,7 +2,7 @@ A sua missão
 
 # Vibbra To Do List
 
-Link testável: https://vibbra.vercel.app
+Link testável: https://vibbra.sinergia.dev.br
 
 ## Orçamento
 
