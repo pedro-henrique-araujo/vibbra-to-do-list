@@ -7,7 +7,7 @@ Link testável: https://vibbra.sinergia.dev.br
 ## Orçamento
 
 Estimativa de horas: 35 horas
-Data de entrega: 19 de Janeiro de 2023
+Data de entrega: 22 de Janeiro de 2023
 
 ### Funcionalidades
 
